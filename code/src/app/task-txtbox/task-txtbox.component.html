@@ -1,0 +1,3 @@
+<span class="todo-desc" *ngIf="!editable">
+  <input type="text" [(ngModel)]="task.data" (blur)="updateTask()" isfocus="true" [autofocus]="true">
+</span>

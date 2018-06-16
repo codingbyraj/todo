@@ -1,0 +1,10 @@
+<div class="container">  
+  <div class="data-section left">
+      <input type="text" class="txtbox" #inputData placeholder="Enter Task" autofocus>  
+  </div>  
+  <div class="add-section right clearfix">
+      <input type="button" class="btn-addtodo left" value="" (click)="addTodo(inputData.value)">
+      <i class="add-icon fa fa-plus-circle"></i>
+      
+  </div>  
+</div>

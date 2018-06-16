@@ -1,0 +1,90 @@
+h1 {
+  text-align: center;
+}
+
+.print-todos {
+  padding-top: 3%;
+  max-width: 70%;
+  margin: auto;
+  /* pos ition: relative; */
+}
+
+.print-todos li {
+  border: 1px solid grey;
+  border-top: none;
+  list-style: none;
+  padding: 6px 0;
+  font-weight: bold;
+  /* position: absolute; */
+}
+
+.heading {
+  background: silver;
+  border: 1px solid !important;
+}
+
+.heading span {
+  /* padding: 6px 0; */
+}
+
+.print-todos .heading span:first-child {
+  display: inline-block;
+  width: 50%;
+  border-right: 1px solid;
+}
+
+.print-todos .heading span:nth-child(2) {
+  display: inline-block;
+  width: 20%;
+  border-right: 1px solid;
+}
+
+.print-todos .heading span:last-child {
+  display: inline-block;
+  width: 29%;
+}
+
+.print-todos li span {
+  text-align: center;
+}
+
+.todo-desc {
+  display: inline-block;
+  width: 50%;
+  /* border-right: 1px solid; */
+}
+
+.todo-staus {
+  display: inline-block;
+  width: 19%;
+}
+
+.todo-update-delete {
+  display: inline-block;
+  width: 29%;
+  /* border-left: 1px solid; */
+}
+
+.todo-staus span {
+  border: 1px solid;
+  margin: 0 5px;
+}
+
+.todo-update-delete span {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/*  */
+
+li.task-done {
+  background: #35CE8D;
+  color: whitesmoke;
+}
+
+span.task-done {
+  text-decoration-line: line-through;
+}
+task-txtbox{
+  text-align: center;  
+}

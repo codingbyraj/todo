@@ -1,0 +1,27 @@
+<h1>Todo Application</h1>
+<app-todo [todos]='todos' (result)="updateAfterAddTodo($event)"></app-todo>
+
+<ul class="print-todos" *ngIf="todos.length">
+  <li class="heading clearfix">
+    <span class="left">Task</span>
+    <span class="left">Toggle Status</span>
+    <span class="right">Update/Delete</span>
+  </li>
+  <li *ngFor="let todo of todos" [class.task-done]="todo.status">
+    <task-txtbox [task]="todo" (updateParentTask)= "updatedTaskByChild($event)" *ngIf="todo.isEditable"></task-txtbox>
+    <span class="todo-desc" [class.task-done]="todo.status" *ngIf="!todo.isEditable" (click)="makeEditable(todo.id)">
+      {{todo.data}}
+    </span>
+    <span class="todo-staus">
+      <input type="checkbox" [(ngModel)]="todo.status">
+    </span>
+    <span class="todo-update-delete">
+      <span class="edit">
+        <i class="fas fa-pencil-alt" (click)="makeEditable(todo.id)"></i>        
+      </span>      
+      <span class="delete">
+        <i class="far fa-trash-alt" (click)="deleteTodo(todo.id)"></i>
+      </span>
+    </span>
+  </li>
+</ul>
