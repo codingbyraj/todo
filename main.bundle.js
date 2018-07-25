@@ -27,7 +27,7 @@ module.exports = "h1 {\r\n  text-align: center;\r\n}\r\n\r\n.print-todos {\r\n  
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Todo Application</h1>\n<app-todo [todos]='todos' (result)=\"updateAfterAddTodo($event)\"></app-todo>\n\n<ul class=\"print-todos\" *ngIf=\"todos.length\">\n  <li class=\"heading clearfix\">\n    <span class=\"left\">Task</span>\n    <span class=\"left\">Toggle Status</span>\n    <span class=\"right\">Update/Delete</span>\n  </li>\n  <li *ngFor=\"let todo of todos\" [class.task-done]=\"todo.status\">\n    <task-txtbox [task]=\"todo\" (updateParentTask)= \"updatedTaskByChild($event)\" *ngIf=\"todo.isEditable\"></task-txtbox>\n    <span class=\"todo-desc\" [class.task-done]=\"todo.status\" *ngIf=\"!todo.isEditable\" (click)=\"makeEditable(todo.id)\">\n      {{todo.data}}\n    </span>\n    <span class=\"todo-staus\">\n      <input type=\"checkbox\" [(ngModel)]=\"todo.status\">\n    </span>\n    <span class=\"todo-update-delete\">\n      <span class=\"edit\">\n        <i class=\"fas fa-pencil-alt\" (click)=\"makeEditable(todo.id)\"></i>        \n      </span>      \n      <span class=\"delete\">\n        <i class=\"far fa-trash-alt\" (click)=\"deleteTodo(todo.id)\"></i>\n      </span>\n    </span>\n  </li>\n</ul>"
+module.exports = "<h1>Todo Application</h1>\n<app-todo [todos]='todos' (result)=\"updateAfterAddTodo($event)\"></app-todo>\n\n<ul class=\"print-todos\" *ngIf=\"todos.length\">\n  <li class=\"heading clearfix\">\n    <span class=\"left\">Task</span>\n    <span class=\"left\">Toggle Status</span>\n    <span class=\"right\">Update/Delete</span>\n  </li>\n  <li *ngFor=\"let todo of todos\" [class.task-done]=\"todo.status\">\n    <task-txtbox [task]=\"todo\" (updateParentTask)= \"updatedTaskByChild($event)\" *ngIf=\"todo.isEditable\"></task-txtbox>    \n    <span class=\"todo-desc\" [class.task-done]=\"todo.status\" *ngIf=\"!todo.isEditable\" (click)=\"makeEditable(todo.id)\">\n      {{todo.data}}\n    </span>\n    <span class=\"todo-staus\">\n      <input type=\"checkbox\" [(ngModel)]=\"todo.status\">\n    </span>\n    <span class=\"todo-update-delete\">\n      <span class=\"edit\">\n        <i class=\"fas fa-pencil-alt\" (click)=\"makeEditable(todo.id)\"></i>        \n      </span>      \n      <span class=\"delete\">\n        <i class=\"far fa-trash-alt\" (click)=\"deleteTodo(todo.id)\"></i>\n      </span>\n    </span>\n  </li>\n</ul>"
 
 /***/ }),
 
@@ -168,14 +168,14 @@ var AppModule = /** @class */ (function () {
 /***/ "./src/app/task-txtbox/task-txtbox.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".todo-desc {\r\n    display: inline-block;\r\n    width: 50%;\r\n  }\r\n    \r\n  task-txtbox{\r\n    text-align: center;\r\n  }"
+module.exports = ".todo-desc {\r\n  display: inline-block;\r\n  width: 50%;\r\n}\r\n\r\ntask-txtbox {\r\n  text-align: center;\r\n}\r\n\r\n.textbox {\r\n  width: 80%;\r\n  height: 24px;\r\n  border-radius: 5px;\r\n  border: 1px solid;\r\n  padding: 2px 4px;\r\n}\r\n"
 
 /***/ }),
 
 /***/ "./src/app/task-txtbox/task-txtbox.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"todo-desc\" *ngIf=\"!editable\">\n  <input type=\"text\" [(ngModel)]=\"task.data\" (blur)=\"updateTask()\" isfocus=\"true\" [autofocus]=\"true\">\n</span>"
+module.exports = "<span class=\"todo-desc\" *ngIf=\"!editable\">\n  <input class=\"textbox\" type=\"text\" [(ngModel)]=\"task.data\" (blur)=\"updateTask()\" isfocus=\"true\" [autofocus]=\"true\">\n</span>"
 
 /***/ }),
 
@@ -258,7 +258,7 @@ module.exports = ".container{    \r\n    /* border:1px solid blue; */\r\n    wid
 /***/ "./src/app/todo/todo.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">  \n  <div class=\"data-section left\">\n      <input type=\"text\" class=\"txtbox\" #inputData placeholder=\"Enter Task\" autofocus>  \n  </div>  \n  <div class=\"add-section right clearfix\">\n      <input type=\"button\" class=\"btn-addtodo left\" value=\"\" (click)=\"addTodo(inputData.value)\">\n      <i class=\"add-icon fa fa-plus-circle\"></i>\n      \n  </div>  \n</div>\n"
+module.exports = "<div class=\"container\">  \n  <div class=\"data-section left\">\n      <input type=\"text\" class=\"txtbox\" [(ngModel)]=\"inputData\" placeholder=\"Enter Task\" autofocus>  \n  </div>  \n  <div class=\"add-section right clearfix\">\n      <input type=\"button\" class=\"btn-addtodo left\" value=\"\" (click)=\"addTodo()\">\n      <i class=\"add-icon fa fa-plus-circle\"></i>\n      \n  </div>  \n</div>\n"
 
 /***/ }),
 
@@ -284,12 +284,12 @@ var TodoComponent = /** @class */ (function () {
     function TodoComponent() {
         this.result = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* EventEmitter */]();
     }
-    TodoComponent.prototype.addTodo = function (item) {
-        if (item.length > 0) {
-            var newTodo = new __WEBPACK_IMPORTED_MODULE_1__todo__["a" /* Todo */](this.todos.length + 1, item, false, false);
+    TodoComponent.prototype.addTodo = function () {
+        if (this.inputData.length > 0) {
+            var newTodo = new __WEBPACK_IMPORTED_MODULE_1__todo__["a" /* Todo */](this.todos.length + 1, this.inputData, false, false);
             this.todos.push(newTodo);
-            console.log("after add todo ", this.todos);
             this.result.emit(this.todos);
+            this.inputData = "";
         }
         else {
             alert("Task Can't be Empty");
